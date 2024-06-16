@@ -10,6 +10,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     phone_number = models.CharField(max_length=15, blank=True)
+    email = models.EmailField(default='', blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
     image = models.ImageField(
         upload_to='images/', default='../default_profile_qdjgyp'
