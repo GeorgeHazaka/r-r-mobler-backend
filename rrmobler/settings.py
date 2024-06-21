@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'profiles',
     'categories',
     'products',
+    'addresses',
+    'orders',
 ]
 
 MIDDLEWARE = [
