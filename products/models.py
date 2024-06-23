@@ -19,6 +19,7 @@ class Product(models.Model):
         ('walden', 'Walden'),
         ('xpro2', 'X-pro II')
     ]
+
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
