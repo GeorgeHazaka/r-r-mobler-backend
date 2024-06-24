@@ -42,7 +42,7 @@ SECRET_KEY = 'django-insecure-c$(#6_86&*0u#oo$uj&jijk8f0)9u9ejhpqhk@$!l69l)$%)_(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-georgehazak-rrmoblerbac-zrtly61frwa.ws-eu114.gitpod.io']
+ALLOWED_HOSTS = ['8000-georgehazak-rrmoblerbac-honyu6ex08u.ws-eu114.gitpod.io']
 
 
 # Application definition
@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'addresses',
     'orders',
     'orderitems',
+    'carts',
+    'cartitems',
 ]
 
 MIDDLEWARE = [
