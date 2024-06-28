@@ -8,4 +8,4 @@ class Cart(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Cart {self.id} for {self.user.username}"
+        return f"Cart {self.cart_id} for {self.user.username}"

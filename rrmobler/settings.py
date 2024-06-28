@@ -27,10 +27,10 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%d %b %Y',
 }
 
-if 'DEV' not in os.environ:
-    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
-        'rest_framework.renderers.JSONRenderer',
-    ]
+# if 'DEV' not in os.environ:
+#     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+#         'rest_framework.renderers.JSONRenderer',
+#     ]
 
 
 # Quick-start development settings - unsuitable for production
@@ -42,7 +42,7 @@ SECRET_KEY = 'django-insecure-c$(#6_86&*0u#oo$uj&jijk8f0)9u9ejhpqhk@$!l69l)$%)_(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-georgehazak-rrmoblerbac-honyu6ex08u.ws-eu114.gitpod.io']
+ALLOWED_HOSTS = ['8000-georgehazak-rrmoblerbac-imku5z61xxz.ws-eu114.gitpod.io']
 
 
 # Application definition

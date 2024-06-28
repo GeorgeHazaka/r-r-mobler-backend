@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from carts.models import Cart
 from products.models import Product
 
@@ -12,7 +13,7 @@ class CartItem(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.quantity} x {self.product.name} in Cart {self.cart.id}"
+        return f"{self.quantity} x {self.product.name} in Cart {self.cart.cart_id}"
 
     def get_total_price(self):
         return self.quantity * self.product.price
