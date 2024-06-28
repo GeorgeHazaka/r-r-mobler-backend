@@ -11,9 +11,9 @@ class CartItemList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         cart_id = self.kwargs.get('cart_id')
-        product_id = self.kwargs.get('product_id')
+        product_id = self.request.data.get('product')
 
-        cart = Cart.objects.get(id=cart_id, user=self.request.user)
+        cart = Cart.objects.get(cart_id=cart_id, user=self.request.user)
         product = Product.objects.get(id=product_id)
 
         serializer.save(cart=cart, product=product)
@@ -21,12 +21,13 @@ class CartItemList(generics.ListCreateAPIView):
     def get_queryset(self):
         cart_id = self.kwargs.get('cart_id')
         user = self.request.user
-        return CartItem.objects.filter(cart_id=cart_id, cart__user=user)
+        return CartItem.objects.filter(cart__cart_id=cart_id, cart__user=user)
 
 
 class CartItemDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CartItemSerializer
     permission_classes = [permissions.IsAuthenticated]
+    lookup_url_kwarg = 'product_id'
 
     def get_queryset(self):
         cart_id = self.kwargs.get('cart_id')
