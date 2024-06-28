@@ -21,7 +21,7 @@ class CartItemList(generics.ListCreateAPIView):
     def get_queryset(self):
         cart_id = self.kwargs.get('cart_id')
         user = self.request.user
-        return CartItem.objects.filter(cart__id=cart_id, cart__user=user)
+        return CartItem.objects.filter(cart_id=cart_id, cart__user=user)
 
 
 class CartItemDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -30,4 +30,5 @@ class CartItemDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         cart_id = self.kwargs.get('cart_id')
-        return CartItem.objects.filter(cart__id=cart_id, cart__user=self.request.user)
+        user = self.request.user
+        return CartItem.objects.filter(cart_id=cart_id, cart__user=user)
