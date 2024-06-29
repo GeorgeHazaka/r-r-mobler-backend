@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 if os.path.exists('env.py'):
     import env
 
@@ -24,13 +25,30 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [(
+        'rest_framework.authentication.SessionAuthentication'
+        if 'DEV' in os.environ
+        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    )],
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20,
     'DATETIME_FORMAT': '%d %b %Y',
 }
 
-# if 'DEV' not in os.environ:
-#     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
-#         'rest_framework.renderers.JSONRenderer',
-#     ]
+REST_USE_JWT = True
+JWT_AUTH_SECURE = True
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'rrmobler.serializers.CurrentUserSerializer'
+}
+
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
 
 
 # Quick-start development settings - unsuitable for production
@@ -42,7 +60,7 @@ SECRET_KEY = 'django-insecure-c$(#6_86&*0u#oo$uj&jijk8f0)9u9ejhpqhk@$!l69l)$%)_(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-georgehazak-rrmoblerbac-d86s5xhb3c5.ws-eu114.gitpod.io']
+ALLOWED_HOSTS = ['8000-georgehazak-rrmoblerbac-z7mpwbg5w5j.ws-eu114.gitpod.io']
 
 
 # Application definition
@@ -57,6 +75,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
 
     'profiles',
     'categories',
@@ -69,7 +89,7 @@ INSTALLED_APPS = [
     'reviews',
     'payments',
 ]
-
+SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -104,12 +124,17 @@ WSGI_APPLICATION = 'rrmobler.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'DEV' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
 
 
 # Password validation
