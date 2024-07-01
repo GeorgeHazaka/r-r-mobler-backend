@@ -53,9 +53,10 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEV' in os.environ
+# DEBUG = 'DEV' in os.environ
+DEBUG = False
 
-if 'DEV' not in os.environ:
+if not DEBUG:
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
         'rest_framework.renderers.JSONRenderer',
     ]
