@@ -62,7 +62,7 @@ if not DEBUG:
     ]
 
 ALLOWED_HOSTS = [
-    '8000-georgehazak-rrmoblerbac-z7mpwbg5w5j.ws-eu114.gitpod.io',
+    '8000-georgehazak-rrmoblerbac-gzus87rutad.ws-eu115.gitpod.io',
     'localhost',
     'rrmobler.herokuapp.com',
 ]
